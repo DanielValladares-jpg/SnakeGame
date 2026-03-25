@@ -14,6 +14,7 @@
 - Se agrego un contador de niveles.
 - La velocidad varia con respecto al aumento del puntaje.
 - El fondo del mapa varia su color con respecto al nivel actual.
+- Se agregó la capacidad de controlar la serpiente con las teclas "WASD", y la tecla "Space" para pausar el juego.
 
 ## Herencia y polimorfismo
 <p>Para este juego la herencia esta marcada en la extension de las librerias "Jpanel" y "KeyAdapter", donde, se toman metodos de las clases (@override), y se sobreescriben
