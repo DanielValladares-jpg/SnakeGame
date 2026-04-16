@@ -6,7 +6,7 @@ package model;
 
 public class GameState {
     private int score = 0;
-      private int level = 1;
+    private int level = 1;
     private boolean gameOver = false;
     private boolean paused   = false;
     
