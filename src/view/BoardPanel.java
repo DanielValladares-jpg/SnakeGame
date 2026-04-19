@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import controller.GameController;
 import model.Snake;
 import java.awt.Point;
+import model.Food;
 
 public class BoardPanel extends JPanel {
     public static final int CELL = 28;
@@ -40,6 +41,65 @@ public class BoardPanel extends JPanel {
 
         if (ctrl.getState().isGameOver())   drawGameOver(g); 
         if (ctrl.getState().isPaused())  drawPaused(g);
+        if (ctrl.getState().isWin()) drawWin(g);
+        
+       Food extraFood = ctrl.getExtraFood();
+         boolean doubleFoodActive = ctrl.isDoubleFoodActive();
+        
+        if (doubleFoodActive && extraFood != null) {
+
+          Point p = extraFood.getPosition();
+
+          g.setColor(Color.green);
+
+            g.fillOval(
+            p.x * CELL,
+            p.y * CELL,
+            CELL,
+            CELL
+                    
+          );
+        }
+        
+        if (ctrl.estaEsperandoInicio() && !ctrl.estaContando()) {
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("Arial", Font.PLAIN, 35));
+
+        String msg = "Presiona C para comenzar";
+
+        FontMetrics fm = g.getFontMetrics();
+        int x = (getWidth() - fm.stringWidth(msg)) / 2;
+        g.drawString(msg, x, getHeight()/2);
+        
+        g.setFont(new Font("Arial", Font.PLAIN, 14));
+
+    String restart = "Presiona R para reiniciar";
+    String exit    = "Presiona X para salir";
+    String ganar = "Recoge 5 premios para ganar";
+
+    g.drawString(restart, (getWidth()-g.getFontMetrics().stringWidth(restart))/2, getHeight()/2 + 40);
+    g.drawString(exit,    (getWidth()-g.getFontMetrics().stringWidth(exit))/2,    getHeight()/2 + 60);
+    g.drawString(ganar, (getWidth()-g.getFontMetrics().stringWidth(ganar))/2,    getHeight()/2 + 80);
+    }      
+        if (ctrl.estaContando()) {
+         g.setColor(Color.YELLOW);
+         g.setFont(new Font("Arial", Font.BOLD, 50));
+
+        String texto;
+
+        if (ctrl.getContador() >= 1) {
+        texto = String.valueOf(ctrl.getContador());
+    }
+        else {
+        texto = "¡Comienza!";
+}
+
+         FontMetrics fm = g.getFontMetrics();
+         int x = (getWidth() - fm.stringWidth(texto)) / 2;
+         int y = getHeight() / 2;
+
+        g.drawString(texto, x, y);
+    }
     }
     
     
@@ -134,23 +194,51 @@ public class BoardPanel extends JPanel {
         g.fillOval(fp.x*CELL+3, fp.y*CELL+3, CELL-6, CELL-6);
     }
 
-    private void drawGameOver(Graphics g) {
-        g.setColor(new Color(0, 0, 0, 160));
-        g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.BOLD, 28));
-        String msg = "Game Over";
-        FontMetrics fm = g.getFontMetrics();
-        g.drawString(msg, (getWidth()-fm.stringWidth(msg))/2, getHeight()/2);
-    }
+private void drawGameOver(Graphics g) {
+    g.setColor(new Color(0, 0, 0, 160));
+    g.fillRect(0, 0, getWidth(), getHeight());
+
+    g.setColor(Color.WHITE);
+    g.setFont(new Font("Arial", Font.BOLD, 28));
+    String msg = "Game Over";
+    FontMetrics fm = g.getFontMetrics();
+    g.drawString(msg, (getWidth()-fm.stringWidth(msg))/2, getHeight()/2 - 20);
+
+    // Texto adicional
+    g.setFont(new Font("Arial", Font.PLAIN, 14));
+
+    String restart = "Presiona R para reiniciar";
+    String exit    = "Presiona X para salir";
+
+    g.drawString(restart, (getWidth()-g.getFontMetrics().stringWidth(restart))/2, getHeight()/2 + 20);
+    g.drawString(exit,    (getWidth()-g.getFontMetrics().stringWidth(exit))/2,    getHeight()/2 + 40);
+}
 
     private void drawPaused(Graphics g) {
         g.setColor(Color.YELLOW);
         g.setFont(new Font("Arial", Font.BOLD, 22));
         g.drawString("PAUSA", 10, 30);
     }
+    
+    private void drawWin(Graphics g) {
+        g.setColor(new Color(0, 0, 0, 160));
+        g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("Arial", Font.BOLD, 28));
+        String msg = "Ganaste";
+        FontMetrics fm = g.getFontMetrics();
+        g.drawString(msg, (getWidth()-fm.stringWidth(msg))/2, getHeight()/2);
+        
+            g.setFont(new Font("Arial", Font.PLAIN, 14));
 
+    String restart = "Presiona R para reiniciar";
+    String exit    = "Presiona X para salir";
 
+    g.drawString(restart, (getWidth()-g.getFontMetrics().stringWidth(restart))/2, getHeight()/2 + 20);
+    g.drawString(exit,    (getWidth()-g.getFontMetrics().stringWidth(exit))/2,    getHeight()/2 + 40);
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

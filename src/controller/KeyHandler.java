@@ -26,6 +26,8 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_S: ctrl.setDirection(Snake.Direction.DOWN); break;
             case KeyEvent.VK_D: ctrl.setDirection(Snake.Direction.RIGHT); break;
             case KeyEvent.VK_SPACE: ctrl.togglePause(); break;
+            case KeyEvent.VK_X: ctrl.exitGame(); break;
+            case KeyEvent.VK_C:ctrl.iniciarCuentaRegresiva(); break;
             
         }
     }

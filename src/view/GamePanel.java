@@ -12,12 +12,14 @@ import java.awt.*;
 import javax.swing.*;
 import controller.GameController;
 import controller.KeyHandler;
+import javax.swing.ImageIcon;
 
 public class GamePanel extends JPanel {
     private GameController ctrl;
     private BoardPanel boardPanel;
     private JLabel scoreLabel;
     private JLabel levelLabel;
+    private JLabel premioLabel;
 
     public GamePanel() {
         setLayout(new BorderLayout());
@@ -26,7 +28,7 @@ public class GamePanel extends JPanel {
         boardPanel = new BoardPanel(ctrl);
 
         // Panel lateral derecho con el puntaje
-        JPanel side = new JPanel(new GridLayout(4, 1, 0, 10));
+        JPanel side = new JPanel(new GridLayout(5, 1, 0, 10));
         side.setBackground(Color.BLACK);
         side.setBorder(BorderFactory.createEmptyBorder(20, 12, 20, 12));
 
@@ -47,14 +49,22 @@ public class GamePanel extends JPanel {
         levelLabel.setOpaque(true);
         levelLabel.setBackground(Color.BLACK);
         levelLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        
+        premioLabel = new JLabel("<html><center>PREMIOS<br>0</center></html>", SwingConstants.CENTER);
+        premioLabel.setForeground(Color.WHITE);
+        premioLabel.setFont(new Font("Arial", Font.BOLD,14));
+        premioLabel.setOpaque(true);
+        premioLabel.setBackground(Color.BLACK);
+        premioLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        JLabel hint = new JLabel("<html><center>P = Pausa<br>Flechas = mover</center>R = Resetear</html>", SwingConstants.CENTER);
+        JLabel hint = new JLabel("<html><center>Espacio = Pausa<br>WASD = mover</center>R = Resetear</html>", SwingConstants.CENTER);
         hint.setForeground(Color.GRAY);
-        hint.setFont(new Font("Arial", Font.PLAIN, 11));
+        hint.setFont(new Font("Arial", Font.PLAIN, 10));
 
         side.add(title);
         side.add(scoreLabel);
         side.add(levelLabel);
+        side.add(premioLabel);
         side.add(hint);
 
         add(boardPanel, BorderLayout.CENTER);
@@ -76,10 +86,14 @@ public class GamePanel extends JPanel {
         if (levelLabel != null && ctrl != null) {
         levelLabel.setText("<html><center>NIVEL<br>"
             + ctrl.getState().getLabel() + "</center></html>");
-    }
+        }
+        if (premioLabel != null && ctrl != null) {
+        premioLabel.setText("<html><center>PREMIOS<br>"
+        + ctrl.getState().getpremios() + "</center></html>");
+
+}
         if (boardPanel != null) boardPanel.repaint();
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,8 +114,9 @@ public class GamePanel extends JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
+
