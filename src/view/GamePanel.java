@@ -8,11 +8,13 @@ package view;
  *
  * @author danie
  */
+
+//Librerias de interfaces
+//Importe de clases
 import java.awt.*;
 import javax.swing.*;
 import controller.GameController;
 import controller.KeyHandler;
-import javax.swing.ImageIcon;
 
 public class GamePanel extends JPanel {
     private GameController ctrl;
@@ -20,6 +22,7 @@ public class GamePanel extends JPanel {
     private JLabel scoreLabel;
     private JLabel levelLabel;
     private JLabel premioLabel;
+    private JLabel bestScoreLabel;
 
     public GamePanel() {
         setLayout(new BorderLayout());
@@ -35,7 +38,14 @@ public class GamePanel extends JPanel {
         JLabel title = new JLabel("SNAKE", SwingConstants.CENTER);
         title.setForeground(Color.GREEN);
         title.setFont(new Font("Arial", Font.BOLD, 20));
-
+        
+        bestScoreLabel = new JLabel("<html><center>SCORE<br>0</center></html>", SwingConstants.CENTER);
+        bestScoreLabel.setForeground(Color.WHITE);
+        bestScoreLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        bestScoreLabel.setOpaque(true);
+        bestScoreLabel.setBackground(Color.BLACK);
+        bestScoreLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        
         scoreLabel = new JLabel("<html><center>PUNTAJE<br>0</center></html>", SwingConstants.CENTER);
         scoreLabel.setForeground(Color.WHITE);
         scoreLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -56,12 +66,13 @@ public class GamePanel extends JPanel {
         premioLabel.setOpaque(true);
         premioLabel.setBackground(Color.BLACK);
         premioLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        
 
         JLabel hint = new JLabel("<html><center>Espacio = Pausa<br>WASD = mover</center>R = Resetear</html>", SwingConstants.CENTER);
         hint.setForeground(Color.GRAY);
         hint.setFont(new Font("Arial", Font.PLAIN, 10));
-
-        side.add(title);
+        
+        side.add(bestScoreLabel);
         side.add(scoreLabel);
         side.add(levelLabel);
         side.add(premioLabel);
@@ -92,6 +103,10 @@ public class GamePanel extends JPanel {
         + ctrl.getState().getpremios() + "</center></html>");
 
 }
+        if (bestScoreLabel != null && ctrl != null) {
+        bestScoreLabel.setText("<html><center>SCORE<br>"
+        + ctrl.getBestScore() + "</center></html>");
+    }
         if (boardPanel != null) boardPanel.repaint();
     }
     /**

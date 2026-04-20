@@ -8,6 +8,8 @@ package view;
  *
  * @author danie
  */
+
+//Librerias de interfaz grafica
 import java.awt.*;
 import javax.swing.JPanel;
 import controller.GameController;
@@ -18,18 +20,21 @@ import model.Food;
 public class BoardPanel extends JPanel {
     public static final int CELL = 28;
     private GameController ctrl;
-
+    
+    //Constructor del GameController
     public BoardPanel(GameController ctrl) {
         this.ctrl = ctrl;
         setPreferredSize(new Dimension(Snake.COLS * CELL, Snake.ROWS * CELL));
         setBackground(Color.BLACK);
     }
 
+    //metodo de herencia de java swing
 @Override
     protected void paintComponent(Graphics g) {
         
        super.paintComponent(g);
-
+       
+       //Pintar el aumento de nivel
        int level = ctrl.getState().getLabel();
 
         g.setColor(getBackgroundColorByLevel(level));
@@ -38,12 +43,14 @@ public class BoardPanel extends JPanel {
         drawGrid1(g, level);
         drawFood(g);
         drawSnake(g);
-
+        
+        //pintar los cambios de estado
         if (ctrl.getState().isGameOver())   drawGameOver(g); 
         if (ctrl.getState().isPaused())  drawPaused(g);
         if (ctrl.getState().isWin()) drawWin(g);
         
-       Food extraFood = ctrl.getExtraFood();
+        //Pintar la segunda comida
+        Food extraFood = ctrl.getExtraFood();
          boolean doubleFoodActive = ctrl.isDoubleFoodActive();
         
         if (doubleFoodActive && extraFood != null) {
@@ -61,6 +68,7 @@ public class BoardPanel extends JPanel {
           );
         }
         
+        //Pintar El inicio 
         if (ctrl.estaEsperandoInicio() && !ctrl.estaContando()) {
         g.setColor(Color.GREEN);
         g.setFont(new Font("Arial", Font.PLAIN, 35));
@@ -79,8 +87,7 @@ public class BoardPanel extends JPanel {
 
     g.drawString(restart, (getWidth()-g.getFontMetrics().stringWidth(restart))/2, getHeight()/2 + 40);
     g.drawString(exit,    (getWidth()-g.getFontMetrics().stringWidth(exit))/2,    getHeight()/2 + 60);
-    g.drawString(ganar, (getWidth()-g.getFontMetrics().stringWidth(ganar))/2,    getHeight()/2 + 80);
-    }      
+    g.drawString(ganar, (getWidth()-g.getFontMetrics().stringWidth(ganar))/2,    getHeight()/2 + 80);}      
         if (ctrl.estaContando()) {
          g.setColor(Color.YELLOW);
          g.setFont(new Font("Arial", Font.BOLD, 50));
@@ -88,11 +95,10 @@ public class BoardPanel extends JPanel {
         String texto;
 
         if (ctrl.getContador() >= 1) {
-        texto = String.valueOf(ctrl.getContador());
-    }
+        texto = String.valueOf(ctrl.getContador());}
+        
         else {
-        texto = "¡Comienza!";
-}
+        texto = "¡Comienza!";}
 
          FontMetrics fm = g.getFontMetrics();
          int x = (getWidth() - fm.stringWidth(texto)) / 2;
@@ -102,7 +108,7 @@ public class BoardPanel extends JPanel {
     }
     }
     
-    
+    //maneja el color de fondo
     private Color getBackgroundColorByLevel(int level) {
     switch (level % 6) {
         case 0: return Color.BLACK;
@@ -115,7 +121,7 @@ public class BoardPanel extends JPanel {
     }
     }
     
-    
+    //Maneja el color de las lineas(grid)
       private void drawGrid1(Graphics g, int level){
     switch (level % 6) {
         case 0:  g.setColor(new Color(30, 30, 30));
@@ -154,14 +160,8 @@ public class BoardPanel extends JPanel {
         }
      }
 
-    private void drawGrid(Graphics g) {
-        g.setColor(new Color(30, 30, 30));
-        for (int r = 0; r < Snake.ROWS; r++)
-            for (int c = 0; c < Snake.COLS; c++)
-                g.drawRect(c * CELL, r * CELL, CELL, CELL);
-    }
-
-   private void drawSnake(Graphics g) {
+    //Dibuja la serpiente
+    private void drawSnake(Graphics g) {
     java.util.LinkedList<Point> body = ctrl.getSnake().getBody();
 
     int size = body.size();
@@ -187,14 +187,17 @@ public class BoardPanel extends JPanel {
         );
     }
     }
-
+   
+   
+    //Dibuja la comida
     private void drawFood(Graphics g) {
         Point fp = ctrl.getFood().getPosition();
         g.setColor(Color.RED);
         g.fillOval(fp.x*CELL+3, fp.y*CELL+3, CELL-6, CELL-6);
     }
-
-private void drawGameOver(Graphics g) {
+    
+    //Dibuja el gameOver
+    private void drawGameOver(Graphics g) {
     g.setColor(new Color(0, 0, 0, 160));
     g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -212,14 +215,16 @@ private void drawGameOver(Graphics g) {
 
     g.drawString(restart, (getWidth()-g.getFontMetrics().stringWidth(restart))/2, getHeight()/2 + 20);
     g.drawString(exit,    (getWidth()-g.getFontMetrics().stringWidth(exit))/2,    getHeight()/2 + 40);
-}
-
+    }
+    
+    //dibuja el mensaje de pausa
     private void drawPaused(Graphics g) {
         g.setColor(Color.YELLOW);
         g.setFont(new Font("Arial", Font.BOLD, 22));
         g.drawString("PAUSA", 10, 30);
     }
     
+    //Dibuja el mensaje de win
     private void drawWin(Graphics g) {
         g.setColor(new Color(0, 0, 0, 160));
         g.fillRect(0, 0, getWidth(), getHeight());

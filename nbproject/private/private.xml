@@ -5,16 +5,15 @@
             <url>src/sonido/Reproductor.java</url>
             <bookmark id="1">
                 <name/>
-                <line>27</line>
+                <line>30</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/danie/OneDrive/Documents/NetBeansProjects/SnakeGame/src/controller/GameController.java</file>
-            <file>file:/C:/Users/danie/OneDrive/Documents/NetBeansProjects/SnakeGame/src/sonido/Reproductor.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documents/NetBeansProjects/SnakeGame/src/view/GamePanel.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documents/NetBeansProjects/SnakeGame/src/controller/GameController.java</file>
         </group>
     </open-files>
 </project-private>

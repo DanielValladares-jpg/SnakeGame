@@ -70,6 +70,7 @@ public class Snake {
         return false;
     }
     
+    //Cambia a su estado inicial el cuerpo de la serpiente//
     public void reset() {
     body.clear();
      body.add(new Point(11, 10));

@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
+//Libreria de awt para interfaces
+//Libreria util para herramientas de java
 import java.awt.Point;
 import java.util.Random;
 

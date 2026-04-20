@@ -4,6 +4,7 @@
  */
 package sonido;
 
+//Api de manejo de audio .wav
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -15,10 +16,12 @@ import javax.sound.sampled.LineEvent;
  */
 public class Reproductor{
     
+    //Clip: tipo de dato de la api
     private Clip musica; 
     private Clip efecto; 
     private boolean enLoop = false;
     
+    //loop para la musica de fondo
     public void loop(String ruta){
     try {
         if (musica != null) {
@@ -47,6 +50,7 @@ public class Reproductor{
           e.printStackTrace();}
     }
     
+    //Metodo reproductor de sonido.
     public void reproductor(String ruta){
         try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(
@@ -60,22 +64,26 @@ public class Reproductor{
         }
     }
      
+    //metodo para detener el audio
     public void detener(){
        if (musica != null){
         enLoop = false;
         musica.stop();
         musica.close();}
     }
-     
+    
+    //Metodo para pausar el audio
     public void pausar(){
     if (musica != null && musica.isRunning()){
         enLoop = false; 
         musica.stop();}
     }
-     
+    
+    //Metodo para reanudar el audio
     public void reanudar(){
     if (musica != null) {
         enLoop = true; 
         musica.start();}
     }
+    
     }

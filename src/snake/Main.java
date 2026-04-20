@@ -4,9 +4,9 @@
  */
 package snake;
 
-import java.awt.Image;
 import javax.swing.*;
 import view.GamePanel;
+
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

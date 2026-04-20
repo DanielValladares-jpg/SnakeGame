@@ -4,14 +4,17 @@
  */
 package controller;
 
+//Libreria de manejo de eventos del teclado
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import model.Snake;
 
+//Contructores de GameController
 public class KeyHandler extends KeyAdapter {
     private GameController ctrl;
     public KeyHandler(GameController ctrl) { this.ctrl = ctrl; }
 
+    //Metodo keyPressed para asignar metodos a teclas
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
